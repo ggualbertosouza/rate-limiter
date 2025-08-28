@@ -1,0 +1,9 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    environment:
+      - GO_ENV=development
+      - SERVER_PORT=8080
+      - SERVER_HOST=localhost
