@@ -8,13 +8,15 @@ import (
 	"github.com/joho/godotenv"
 )
 
-type EnvConfig struct {
+var EnvConfig *EnvConfiguration
+
+type EnvConfiguration struct {
 	Env        string // GO_ENV
 	ServerPort string // SERVER_PORT
 	ServerHost string // SERVER_HOST
 }
 
-func LoadEnvConfig() *EnvConfig {
+func Init() {
 	env := getEnv("GO_ENV", "development")
 	if env == "development" {
 		err := godotenv.Load(".env.development")
@@ -23,7 +25,7 @@ func LoadEnvConfig() *EnvConfig {
 		}
 	}
 
-	return &EnvConfig{
+	EnvConfig = &EnvConfiguration{
 		Env:        env,
 		ServerHost: getEnv("SERVER_HOST", "localhost"),
 		ServerPort: ":" + strconv.Itoa(getEnvInt("SERVER_PORT", 8080)),
